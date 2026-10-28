@@ -72,3 +72,18 @@ def test_category_add_product(first_product, second_category):
 
     # Проверяем через геттер, что новый продукт успешно добавился в скрытый список
     assert "Xiaomi" in second_category.products
+
+
+def test_product_str(first_product):
+    assert str(first_product) == "Product, 30000 руб. Остаток: 3 шт."
+
+
+def test_category_str(second_category):
+    assert str(second_category) == "Category, количество продуктов: 3 шт."
+
+
+def test_product_add(first_product):
+    second_category = Product(
+        "Samsung Galaxy", "Смартфон", 20000.0, 2
+    )
+    assert first_product + second_category == 130000.0
