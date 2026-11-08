@@ -1,22 +1,23 @@
 from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
 
-class Product(BaseProduct):
+
+class Product(BaseProduct, PrintMixin):
 
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
         self.__price = price
         self.__quantity = quantity
+        super().__init__()
 
     def __str__(self):
         return f"{self.name}, {self.__price} руб. Остаток: {self.__quantity} шт."
-
 
     def __add__(self, other):
         if type(other) is Product:
             return (self.price * self.quantity) + (other.price * other.quantity)
         raise TypeError
-
 
     @property
     def price(self):
@@ -33,7 +34,6 @@ class Product(BaseProduct):
     @property
     def quantity(self):
         return self.__quantity
-
 
     @classmethod
     def new_product(cls):
