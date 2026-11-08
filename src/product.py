@@ -1,4 +1,6 @@
-class Product:
+from src.base_product import BaseProduct
+
+class Product(BaseProduct):
 
     def __init__(self, name, description, price, quantity):
         self.name = name
@@ -31,3 +33,8 @@ class Product:
     @property
     def quantity(self):
         return self.__quantity
+
+
+    @classmethod
+    def new_product(cls):
+        pass
