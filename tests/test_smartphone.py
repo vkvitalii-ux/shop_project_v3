@@ -1,7 +1,5 @@
 import pytest
 
-from tests.test_main import product_smartphone, product_smartphone2, product_lawngrass
-
 
 def test_smartphone_init(product_smartphone):
     assert product_smartphone.name == "Samsung Galaxy S23 Ultra"

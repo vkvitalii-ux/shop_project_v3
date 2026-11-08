@@ -1,7 +1,5 @@
 import pytest
 
-from tests.test_main import product_lawngrass, product_lawngrass2, product_smartphone
-
 
 def test_lawngrass_init(product_lawngrass):
     assert product_lawngrass.name == "Газонная трава"
