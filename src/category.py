@@ -1,4 +1,4 @@
-from product import Product
+from src.product import Product
 
 
 class Category:
@@ -13,8 +13,19 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products)
 
+    def __str__(self):
+        total_quantity = sum(
+            product.quantity for product in self.__products
+        )
+        return (
+            f"{self.name}, "
+            f"количество продуктов: {total_quantity} шт."
+        )
+
     def add_product(self, product):
         """Метод для добавления одного товара в категорию"""
+        if not isinstance(product, Product):
+            raise TypeError
         self.__products.append(product)
         Category.product_count += 1
 
@@ -22,10 +33,8 @@ class Category:
     def products(self):
         products_str = ""
         for product in self.__products:
-            products_str += (
-                f"{product.name}, {product.price} руб. "
-                f"Остаток: {product.quantity} шт.\n"
-            )
+            products_str += f"{str(product)}\n"
+
         return products_str
 
     @classmethod

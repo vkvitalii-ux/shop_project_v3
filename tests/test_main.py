@@ -1,35 +1,6 @@
 import pytest
 
-from product import Product
-from category import Category
-
-
-@pytest.fixture
-def first_product():
-    return Product(
-        name="Product",
-        description="Product",
-        price=30000,
-        quantity=3
-    )
-
-
-@pytest.fixture
-def category(first_product):
-    return Category(
-        name="Category",
-        description="Category",
-        products=[first_product]
-    )
-
-
-@pytest.fixture
-def second_category(first_product):
-    return Category(
-        name="Category",
-        description="Category",
-        products=[first_product]
-    )
+from src.product import Product
 
 
 def test_product_init(first_product):
@@ -72,3 +43,24 @@ def test_category_add_product(first_product, second_category):
 
     # Проверяем через геттер, что новый продукт успешно добавился в скрытый список
     assert "Xiaomi" in second_category.products
+
+
+def test_product_str(first_product):
+    assert str(first_product) == "Product, 30000 руб. Остаток: 3 шт."
+
+
+def test_category_str(second_category):
+    assert str(second_category) == "Category, количество продуктов: 3 шт."
+
+
+def test_product_add(first_product):
+    second_category = Product(
+        "Samsung Galaxy", "Смартфон", 20000.0, 2
+    )
+    assert first_product + second_category == 130000.0
+
+
+def test_category_add_product_error(second_category):
+    """Тест: Проверка, что в категорию нельзя добавить объект, не являющийся продуктом"""
+    with pytest.raises(TypeError):
+        second_category.add_product("Просто строка вместо продукта")
